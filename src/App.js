@@ -39,8 +39,8 @@ function App() {
             altColor={idx%2 === 0}/>)}
           </Table>
           <div className="pagination">
-            {pageNumber > 1 && <Button onClick={() => setPageNumber(prev => prev-1)}>Previous Page</Button>}
-            <Button onClick={() => setPageNumber(prev => prev+1)}>Next Page</Button>
+            {pageNumber > 1 ? <Button onClick={() => setPageNumber(prev => prev-1)}>Previous Page</Button> : <div/>}
+            {pageNumber < 3 ? <Button onClick={() => setPageNumber(prev => prev+1)}>Next Page</Button> : <div/>}
           </div>
           {modal.open && <Modal />}
         </donationsCtx.Provider>
