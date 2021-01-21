@@ -4,6 +4,7 @@ import { data } from './data';
 import Row from './components/Row/Row';
 import Table from './components/Table/Table';
 import Modal from './components/Modal/Modal';
+import Button from './components/Button/Button'
 import './App.css';
 import donationsCtx from './context/donationsCtx'
 import modalCtx from './context/modalCtx';
@@ -28,7 +29,7 @@ function App() {
     <div className="App">
       <modalCtx.Provider value={[modal, setModal]}>
         <donationsCtx.Provider value={[donations, setDonations]}>
-          <Table headers={['Nonprofit Name', 'Mailing Address', 'Amount USD', 'Edit', 'Send']}>
+          <Table headers={['Nonprofit', 'Mailing Address', 'Amount USD', 'Edit', 'Send']}>
           {donations.slice(0,10).map((d,idx) => <Row 
             key={d._id} 
             _id={d._id} 
@@ -38,8 +39,8 @@ function App() {
             altColor={idx%2 === 0}/>)}
           </Table>
           <div className="pagination">
-            {pageNumber > 1 && <button onClick={() => setPageNumber(prev => prev-1)}>Previous Page</button>}
-            <button onClick={() => setPageNumber(prev => prev+1)}>Next Page</button>
+            {pageNumber > 1 && <Button onClick={() => setPageNumber(prev => prev-1)}>Previous Page</Button>}
+            <Button onClick={() => setPageNumber(prev => prev+1)}>Next Page</Button>
           </div>
           {modal.open && <Modal />}
         </donationsCtx.Provider>

@@ -104,3 +104,15 @@ html {
   background-color: #000;
   opacity: 0.2;
 }
+
+/* PAGINATION */
+
+.pagination {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 20px;
+}
+.pagination > button {
+  max-width: 120px;
+}
