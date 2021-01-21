@@ -1,23 +1,44 @@
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
+import { data } from './data';
+import fetchData from './utils/fetchData';
+import Row from './components/Row/Row';
+import Table from './components/Table/Table';
+import Modal from './components/Modal/Modal';
 import './App.css';
+import donationsCtx from './context/donationsCtx'
+import modalCtx from './context/modalCtx';
 
 function App() {
+  const [ donations, setDonations ] = useState([]);
+  const [ pageNumber, setPageNumber ] = useState(1);
+  const [ modal, setModal ] = useState({open: false, id: null});
+
+
+
+  useEffect(() => {
+    // fetch first page of donations from API
+    // const data = fetchData(`https://givelively.api/donations?page=${pageNumber}`, { method: 'GET'});
+    // setDonations(data)
+
+    setDonations(data[pageNumber-1])
+  },[pageNumber])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <modalCtx.Provider value={[modal, setModal]}>
+        <donationsCtx.Provider value={[donations, setDonations]}>
+          <Table headers={['Nonprofit Name', 'Mailing Address', 'Amount USD', 'Edit', 'Send']}>
+          {donations.slice(0,10).map((d,idx) => <Row 
+            key={d._id} 
+            _id={d._id} 
+            name={d.name} 
+            amount={d.amount} 
+            address={d.address} 
+            altColor={idx%2 === 0}/>)}
+          </Table>
+          {modal.open && <Modal />}
+        </donationsCtx.Provider>
+      </modalCtx.Provider>
     </div>
   );
 }
