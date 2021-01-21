@@ -30,7 +30,7 @@ function App() {
       <modalCtx.Provider value={[modal, setModal]}>
         <donationsCtx.Provider value={[donations, setDonations]}>
           <Table headers={['Nonprofit', 'Mailing Address', 'Amount USD', 'Edit', 'Send']}>
-          {donations.slice(0,10).map((d,idx) => <Row 
+          {donations.map((d,idx) => <Row 
             key={d._id} 
             _id={d._id} 
             name={d.name} 
