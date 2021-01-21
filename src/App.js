@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { data } from './data';
-import fetchData from './utils/fetchData';
+// import fetchData from './utils/fetchData';
 import Row from './components/Row/Row';
 import Table from './components/Table/Table';
 import Modal from './components/Modal/Modal';
@@ -18,7 +18,8 @@ function App() {
   useEffect(() => {
     // fetch first page of donations from API
     // const data = fetchData(`https://givelively.api/donations?page=${pageNumber}`, { method: 'GET'});
-    // setDonations(data)
+    // setDonations(data.donations)
+    // 
 
     setDonations(data[pageNumber-1])
   },[pageNumber])
@@ -36,6 +37,10 @@ function App() {
             address={d.address} 
             altColor={idx%2 === 0}/>)}
           </Table>
+          <div className="pagination">
+            {pageNumber > 1 && <button onClick={() => setPageNumber(prev => prev-1)}>Previous Page</button>}
+            <button onClick={() => setPageNumber(prev => prev+1)}>Next Page</button>
+          </div>
           {modal.open && <Modal />}
         </donationsCtx.Provider>
       </modalCtx.Provider>
